@@ -1,0 +1,20 @@
+﻿  AddBlockColor.c
+D:\CWP\20202717_안규태\9-2\AddBlockColor.c(2,10): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+  Blocks.c
+D:\CWP\20202717_안규태\9-2\Blocks.c(6,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(7,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(11,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(12,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(16,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(17,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(21,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Blocks.c(22,3): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Controller.c
+D:\CWP\20202717_안규태\9-2\Controller.c(12,8): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\CWP\20202717_안규태\9-2\Controller.c(129,8): warning C4101: 'Pos' :참조되지 않은 지역 변수입니다.
+D:\CWP\20202717_안규태\9-2\Controller.c(201,8): warning C4244: '함수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Screen.c
+D:\CWP\20202717_안규태\9-2\Screen.c(232,5): warning C4013: 'addCurrentBlockColor'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  main.c
+  코드를 생성하고 있습니다...
+  9-2.vcxproj -> D:\CWP\20202717_안규태\x64\Debug\9-2.exe
