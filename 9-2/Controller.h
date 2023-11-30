@@ -1,4 +1,5 @@
 #pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -7,7 +8,8 @@
 #include <stdbool.h>
 
 #include <mmsystem.h>
-#pragma comment	(lib, "winmm.lib")
+#pragma comment(lib, "winmm.lib")
+//#define BGM "C:\\Users\\Desktop\\tetris\\tetrisbgm.wav"
 
 enum boardProperty {
 	BoardWidth = 14,

@@ -1,5 +1,5 @@
 #include "AddBlockColor.h"
-#include "Screen.h";
+#include "Screen.h"
 
 void colorRetention(int colorType) {
 	switch (colorType)

@@ -1,19 +1,23 @@
+
+
 #include "Screen.h"
 #include "ConsoleCursor.h"
-#include "AddBlockColor.h"
+
 
 int NextBlock[6][6] = {
-	1,1, 1,1, 1,1,
-	1,0,0,0,0,1,
-	1,0,0,0,0,1,
-	1,0,0,0,0,1,
-	1,0,0,0,0,1,
-	1,1, 1,1, 1,1
+	1 , 1 , 1 , 1 , 1 , 1 ,
+	1 , 0, 0, 0, 0, 1 ,
+	1 , 0, 0, 0, 0, 1 ,
+	1 , 0, 0, 0, 0, 1 ,
+	1 , 0, 0, 0, 0, 1 ,
+	1 , 1 , 1 , 1 , 1 , 1 ,
 };
+
 
 void textcolor(int color_number) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color_number);
 }
+
 
 void GameTitle() {
 	int TETRIS_X = 13;
@@ -30,11 +34,12 @@ void GameTitle() {
 		0,0,1,0,0,2,0,0,0,0,3,0,0,4,0,4,0,0,3,0,0,0,0,5,
 		0,0,1,0,0,2,2,2,0,0,3,0,0,4,0,0,4,3,3,3,5,5,5,0
 	};
-
 	for (int y = 0; y < 5; y++) {
 		for (int x = 0; x < 24; x++) {
 			GoToXY(TETRIS_X + x * 2, TETRIS_Y + y);
-			if (tetris[y][x] == 0) { printf(" "); Sleep(3); }
+			if (tetris[y][x] == 0) {
+				printf(" "); Sleep(3);
+			}
 			else {
 				if (tetris[y][x] == 1) textcolor(YELLOW);
 				else if (tetris[y][x] == 2) textcolor(BLUE);
@@ -47,6 +52,7 @@ void GameTitle() {
 			}
 		}
 	}
+
 	for (int i = 0; i < 20; i++) {
 		GoToXY(TETRIS_X + 18 + i, 1);
 		putchar(introduce[i]); Sleep(50);
@@ -72,20 +78,20 @@ void InGameFrame() {
 	int picture_X = 36;
 	int picture_Y = 0;
 	int SecPicture[3][18] = {
-		0,0,2,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,
-		0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,
-		0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0
+		0,0,2,0,0,0,0,1 ,0,0,0,0,1 ,0,0,0,0,0,
+		0,1 ,0,0,0,0,0,0,0,1 ,0,0,0,0,1 ,0,1 ,0,
+		0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,
 	};
 	int picture[9][20] = {
 		0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,
-		0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,2,0,2,2,2,
-		0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,2,2,
-		0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,0,0,
-		0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,2,0,0,2,
-		0,0,0,0,0,0,3,3,3,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,3,5,3,3,3,3,0,0,0,0,3,0,0,0,0,
-		4,4,4,4,3,3,3,3,3,3,3,3,3,4,3,3,4,4,4,4,
-		4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4
+		0,0,0,0,0,1 ,1 ,0,1 ,1 ,0,0,0,0,0,2,0,2,2,2,
+		0,0,0,0,1 ,0,0,1 ,0,0,1 ,0,0,0,0,0,0,0,2,2,
+		0,0,0,0,0,0,0,1 ,0,0,0,0,0,0,0,0,0,2,0,0,
+		0,0,0,0,0,0,0,1 ,0,0,0,0,0,0,0,0,2,0,0,2,
+		0,0,0,0,0,0,3,3 ,3,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,3,5,3 ,3,3,3,0,0,0,0,3,0,0,0,0,
+		4,4,4,4,3,3,3,3 ,3,3,3,3,3,4,3 ,3,4,4,4,4,
+		4,4,4,4,3,3,3,3 ,3,3,3,3,3,3,3 ,3,4,4,4,4,
 	};
 	for (int y = 0; y < 9; y++) {
 		for (int x = 0; x < 20; x++) {
@@ -103,13 +109,18 @@ void InGameFrame() {
 			Sleep(10);
 		}
 	}
-
 	for (int y = 0; y < 3; y++) {
-		for (int x = 0; x < 18; x++) {
+		for (int x = 18; x >= 0; x--) {
 			GoToXY(x * 2, y);
-			if (SecPicture[y][x] == 0) { textcolor(SKYBLUE); printf("■"); }
-			else if (SecPicture[y][x] == 1) { textcolor(YELLOW); printf("★"); }
-			else if (SecPicture[y][x] == 2) { textcolor(DARK_YELLOW); printf("☆"); }
+			if (SecPicture[y][x] == 0) {
+				textcolor(SKYBLUE); printf("■");
+			}
+			else if (SecPicture[y][x] == 1) {
+				textcolor(YELLOW); printf("★");
+			}
+			else if (SecPicture[y][x] == 2) {
+				textcolor(DARK_YELLOW); printf("☆");
+			}
 			Sleep(10);
 		}
 	}
@@ -120,21 +131,17 @@ void InGameFrame() {
 	else if (level == 1)  printf("⊙ 게임난이도 : 보통");
 	else if (level ==2)  printf("⊙ 게임난이도 : 어려움");
 
-	GoToXY(picture_X, picture_Y + 20);
-	printf("⊙ 점수 : ");
-	printScore();
-
-
 	GoToXY(picture_X, picture_Y + 21);
 	printf("⊙ 게임 키 설명");
+	printScore();
 	GoToXY(picture_X, picture_Y + 22);
-	printf(" ▲     : 블럭 회전");
+	printf("  ▲     : 블럭 회전");
 	GoToXY(picture_X, picture_Y + 23);
-	printf("◀ ▶    : 왼쪽 이동 / 오른쪽 이동");
+	printf("◀  ▶   : 왼쪽 이동 / 오른쪽 이동");
 	GoToXY(picture_X, picture_Y + 24);
-	printf(" ▼     : 아래로 이동");
+	printf("  ▼     : 아래로 이동");
 	GoToXY(picture_X, picture_Y + 25);
-	printf("■■■■   : space bar (맨 아래로...)");
+	printf("■■■■ : space bar (맨 아래로...)");
 
 	textcolor(RED);
 	for (int i = 7; i > 1; i--) {
@@ -142,11 +149,10 @@ void InGameFrame() {
 		printf("게임 시작 %d초 전...!", i / 2);
 		Sleep(300);
 		GoToXY(46, 14);
-		printf("                      ");
+		printf("                     ");
 		Sleep(200);
 	}
 }
-
 void ShowNextBlock() {
 	GoToXY(52, 0 + 11);
 	textcolor(DARK_VIOLET);
@@ -181,7 +187,7 @@ void DeleteNextBlock() {
 				if (x > 0 && x < 5) {
 					if (NextBlock[y][x] == 2) {
 						GoToXY(42 + 8 + x * 2, 12 + y);
-						printf("  ");
+						printf("   ");
 					}
 				}
 			}
@@ -196,9 +202,8 @@ void CreateBoards() {
 		for (int j = 0; j < BoardWidth; j++) {
 			if (i == 0) board[i][j] = 0;
 			board[BoardHeight - 1][j] = 1;
-			if (i > 0 && i < BoardHeight - 1) {
+			if (i > 0 && i < BoardHeight - 1)
 				if (j > 0 && j < BoardWidth - 1) board[i][j] = 0;
-			}
 		}
 	}
 }
@@ -206,8 +211,9 @@ void CreateBoards() {
 void PrintBoards() {
 	for (int x = 1; x < 13; x++) {
 		GoToXY(BoardX + x * 2, BoardY + 1);
-		printf("_");
+		printf("__");
 	}
+
 	for (int y = 0; y < BoardHeight; y++) {
 		GoToXY(BoardX, BoardY + y);
 		if (board[y][0] == 1) {
@@ -215,6 +221,13 @@ void PrintBoards() {
 		}
 		if (board[y][BoardWidth - 1] == 1) {
 			GoToXY(BoardX + BoardWidth * 2 - 2, BoardY + y);
+			textcolor(DARK_YELLOW); printf("▩");
+		}
+		textcolor(WHITE);
+	}
+	for (int x = 0; x < BoardWidth; x++) {
+		GoToXY(BoardX + x * 2, BoardY + BoardHeight - 1);
+		if (board[BoardHeight - 1][x] == 1) {
 			textcolor(DARK_YELLOW); printf("▩");
 		}
 		textcolor(WHITE);
@@ -245,13 +258,12 @@ void deleteBlock() {
 		for (int x = 0; x < BlockSIZE; x++) {
 			if (board[BlockCOL + y][BlockROW + x] == 2) {
 				GoToXY(Pos.X + x * 2, Pos.Y + y);
-				printf(" ");
+				printf("  ");
 			}
 		}
 	}
 	GoToXY(Cursor.X, Cursor.Y);
 }
-
 
 void EndGameFrame() {
 	for (int y = 1; y < BoardHeight - 1; y++) {
@@ -265,7 +277,6 @@ void EndGameFrame() {
 	}
 
 	textcolor(RED);
-
 	for (int i = 7; i > 1; i--) {
 		GoToXY(BlockStartX, BlockStartY + 1);
 		printf("게임종료");
@@ -273,9 +284,9 @@ void EndGameFrame() {
 		printf("시작화면 %d초 전!!", i / 2);
 		Sleep(300);
 		GoToXY(BlockStartX, BlockStartY + 1);
-		printf("    ");
+		printf("        ");
 		GoToXY(BlockStartX - 4, BlockStartY + 2);
-		printf("                   ");
+		printf("                  ");
 		Sleep(200);
 	}
 	system("cls");

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Blocks.h"
 #include "Controller.h"
 
@@ -40,4 +39,5 @@ void deleteBlock();
 void CreateBoards();
 int board[BoardHeight][BoardWidth];
 void PrintBoards();
+
 void textcolor(int color_number);	

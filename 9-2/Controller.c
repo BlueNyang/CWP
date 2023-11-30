@@ -1,7 +1,8 @@
-#include "Controller.H"
+#include "Controller.h"
 #include "Screen.h"
 #include "ConsoleCursor.h"
 #include "AddBlockColor.h"
+
 
 void RotateBlock() {
 	turn = ++turn;
@@ -12,18 +13,19 @@ void NextShape() {
 	srand(time(NULL));
 	nextShape = rand() % BlockType;
 }
-
 void printScore() {
 	GoToXY(36, 20);
 	printf("⊙ 점수 : %d", score);
 }
+
 
 boolean IsOverHeight() {
 	BlockROW = BlockStartX / 2;
 	BlockCOL = 1;
 	for (int y = 0; y < BlockSIZE; y++) {
 		for (int x = 0; x < BlockSIZE; x++) {
-			if (board[BlockCOL + y][BlockROW + x * 2] == 2 && board[BlockCOL + y + 1][BlockROW + x * 2] >= 3)
+			if (board[BlockCOL + y][BlockROW + x * 2] == 2 &&
+				board[BlockCOL + y + 1][BlockROW + x * 2] >= 3)
 				return true;
 		}
 	}
@@ -31,30 +33,35 @@ boolean IsOverHeight() {
 }
 
 boolean IsCollision(int shape, int rotate, int curX, int curY) {
+
 	BlockROW = curX / 2 - BoardX / 2;
 	BlockCOL = curY - BoardY;
 	for (int y = 0; y < BlockSIZE; y++) {
 		for (int x = 0; x < BlockSIZE; x++) {
 			if (Blocks[shape][rotate][y][x] == 2) {
-				if (board[BlockCOL + y][BlockROW + x] == 1 || board[BlockCOL + y][BlockROW + x] >= 3)
+				if (board[BlockCOL + y][BlockROW + x] == 1 ||
+					board[BlockCOL + y][BlockROW + x] >= 3) {
 					return true;
+				}
 			}
 		}
 	}
 	return false;
 }
 
+
 void deletePrevBlock() {
 	for (int y = 0; y < BlockSIZE; y++) {
 		for (int x = 0; x < BlockSIZE; x++) {
 			if (board[prevBlockCOL + y][prevBlockROW + x] == 2) {
 				GoToXY(previewPoint.X + x * 2, previewPoint.Y + y);
-				printf(" ");
+				printf("  ");
 			}
 		}
 	}
 	GoToXY(Cursor.X, Cursor.Y);
 }
+
 
 void previewBlock(int shape, int rotate) {
 	COORD Pos = Cursor = getCursor();
@@ -80,6 +87,7 @@ void previewBlock(int shape, int rotate) {
 	}
 }
 
+
 void BlockFixed(int shape, int rotate) {
 	COORD Pos = getCursor();
 	BlockROW = Pos.X / 2 - BoardX / 2;
@@ -95,6 +103,7 @@ void BlockFixed(int shape, int rotate) {
 			}
 		}
 	}
+
 
 	while (true) {
 		if (IsMaxLine()) deleteLine();
@@ -127,11 +136,12 @@ boolean IsMaxLine() {
 
 void deleteLine() {
 	COORD Pos = Cursor = getCursor();
-	for (int y = BoardHeight - 2; y > 1; y--) {
+	for (int y = BoardHeight - 2; y > 0; y--) {
 		int count = 0;
-		for (int x = 1; x < BoardWidth; x++) {
+		for (int x = 1; x < BoardWidth - 1; x++) {
 			if (board[y][x] >= 3)
 				++count;
+
 			if (count >= 12) {
 				int height = y;
 				score += 1000;
@@ -140,26 +150,25 @@ void deleteLine() {
 					board[height][x] = 0;
 					if (board[height][x] == 0) {
 						GoToXY(x * 2 + BoardX, height + BoardY);
-						printf(" "); Sleep(30);
+						printf("  "); Sleep(30);
 					}
 				}
-
 				for (int i = 0; i < 6; i++) {
 					for (int x = 1; x < BoardWidth - 1; x++) {
 						if (board[height][x] == 0) {
 							GoToXY(x * 2 + BoardX, height + BoardY);
 							if (i % 2 == 0) printf("□");
-							else printf(" ");
+							else printf("  ");
 						}
-					}
-					Sleep(100);
+					}Sleep(100);
 				}
+				
 
 				for (height; height > 0; height--) {
 					for (int x = 1; x < BoardWidth - 1; x++) {
 						board[height][x] = board[height - 1][x];
 						if (board[height - 1][x] == 0 || board[height - 1][x] >= 3) {
-							GoToXY(x * 2 + BoardX, height + BoardY); printf(" ");
+							GoToXY(x * 2 + BoardX, height + BoardY); printf("  ");
 						}
 					}
 				}
@@ -171,7 +180,7 @@ void deleteLine() {
 							colorRetention(board[height][x] - 3);
 						}
 						else {
-							GoToXY(x * 2 + BoardX, height + BoardY); printf(" ");
+							GoToXY(x * 2 + BoardX, height + BoardY); printf("  ");
 						}
 						if (height == 1) board[height][x] = 0;
 					}
@@ -196,7 +205,7 @@ void newBlock() {
 }
 
 void GameProcess() {
-	system("mode con :  cols = 76 lines=28 | title 창의실무프로젝트_테트리스실습");
+	system("mode con cols = 76 lines=28 | title 창의실무프로젝트_테트리스실습");
 	CreateBoards();
 	srand(time(NULL));
 	newBlock();
@@ -204,15 +213,18 @@ void GameProcess() {
 	ShowNextBlock();
 
 	while (true) {
+
 		if (IsNextBlock == true) {
 			IsNextBlock = false;
 			DeleteNextBlock();
 			ShowNextBlock();
 		}
+
 		PrintBoards();
 		GoToXY(Cursor.X, Cursor.Y);
 		addBlock(curShape, turn);
 		previewBlock(curShape, turn);
+
 		if (_kbhit()) {
 			nkey = _getch();
 			if (nkey == SPACEBAR) {
@@ -233,50 +245,51 @@ void GameProcess() {
 				nkey = _getch();
 				int nTurn;
 				switch (nkey) {
-				case UP:
-					nTurn = turn;
-					if (!IsCollision(curShape, (++nTurn % 4), Cursor.X, Cursor.Y)) {
-						deletePrevBlock();
-						deleteBlock();
-						RotateBlock();
-						addBlock(curShape, turn);
-						previewBlock(curShape, turn);
-						continue;
-					}
-					break;
-				case LEFT:
-					if (!IsCollision(curShape, turn, Cursor.X - 2, Cursor.Y)) {
-						deletePrevBlock();
-						deleteBlock();
-						GoToXY(Cursor.X - 2, Cursor.Y);
-						addBlock(curShape, turn);
-						previewBlock(curShape, turn);
-						continue;
-					}
-					break;
-				case RIGHT:
-					if (!IsCollision(curShape, turn, Cursor.X + 2, Cursor.Y)) {
-						deletePrevBlock();
-						deleteBlock();
-						GoToXY(Cursor.X + 2, Cursor.Y);
-						addBlock(curShape, turn);
-						previewBlock(curShape, turn);
-						continue;
-					}
-					break;
-				case DOWN:
-					if (!IsCollision(curShape, turn, Cursor.X, Cursor.Y + 2)) {
-						deletePrevBlock();
-						deleteBlock();
-						GoToXY(Cursor.X, Cursor.Y + 2);
-						addBlock(curShape, turn);
-						previewBlock(curShape, turn);
-						continue;
-					}
-					break;
+					case UP:
+						nTurn = turn;
+						if (!IsCollision(curShape, (++nTurn % 4), Cursor.X, Cursor.Y)) {
+							deletePrevBlock();
+							deleteBlock();
+							RotateBlock();
+							addBlock(curShape, turn);
+							previewBlock(curShape, turn);
+							continue;
+						}
+						break;
+					case LEFT:
+						if (!IsCollision(curShape, turn, Cursor.X - 2, Cursor.Y)) {
+							deletePrevBlock();
+							deleteBlock();
+							GoToXY(Cursor.X - 2, Cursor.Y);
+							addBlock(curShape, turn);
+							previewBlock(curShape, turn);
+							continue;
+						}
+						break;
+					case RIGHT:
+						if (!IsCollision(curShape, turn, Cursor.X + 2, Cursor.Y)) {
+							deletePrevBlock();
+							deleteBlock();
+							GoToXY(Cursor.X + 2, Cursor.Y);
+							addBlock(curShape, turn);
+							previewBlock(curShape, turn);
+							continue;
+						}
+						break;
+					case DOWN:
+						if (!IsCollision(curShape, turn, Cursor.X, Cursor.Y + 2)) {
+							deletePrevBlock();
+							deleteBlock();
+							GoToXY(Cursor.X, Cursor.Y + 2);
+							addBlock(curShape, turn);
+							previewBlock(curShape, turn);
+							continue;
+						}
+						break;
 				}
 			}
 		}
+
 		Sleep(gameLevel);
 		deleteBlock(curShape, turn);
 
