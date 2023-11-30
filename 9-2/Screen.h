@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Blocks.h"
 #include "Controller.h"
 
@@ -18,7 +19,7 @@ typedef enum Color {
 	RED,
 	VIOLET,
 	YELLOW,
-	WHITE
+	WHITE,
 }COLOR;
 
 int static level;
@@ -26,11 +27,12 @@ int static level;
 void InGameFrame();
 void ShowNextBlock();
 void DeleteNextBlock();
+
 int NextBlock[6][6];
 int static Rotation = 0;
 
 void EndGameFrame();
-void GameTitle();	
+void GameTitle();
 
 void addBlock(int shape, int rotate);
 void deleteBlock();
@@ -38,5 +40,4 @@ void deleteBlock();
 void CreateBoards();
 int board[BoardHeight][BoardWidth];
 void PrintBoards();
-
-void textcolor(int color_number);
+void textcolor(int color_number);	

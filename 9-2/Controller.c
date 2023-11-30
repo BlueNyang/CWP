@@ -196,7 +196,7 @@ void newBlock() {
 }
 
 void GameProcess() {
-	system("mode con cols = 76 lines=28 | title 창의실무프로젝트_테트리스실습");
+	system("mode con :  cols = 76 lines=28 | title 창의실무프로젝트_테트리스실습");
 	CreateBoards();
 	srand(time(NULL));
 	newBlock();

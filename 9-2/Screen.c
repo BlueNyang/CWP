@@ -1,5 +1,6 @@
 #include "Screen.h"
 #include "ConsoleCursor.h"
+#include "AddBlockColor.h"
 
 int NextBlock[6][6] = {
 	1,1, 1,1, 1,1,
@@ -23,7 +24,7 @@ void GameTitle() {
 
 	GoToXY(4, 4);
 	int tetris[5][24] = {
-		1, 1,1, 1,1,2,2,2,3,3,3,3,3,4,4,4,4,3,3,3,0,5,5,5,
+		1,1,1,1,1,2,2,2,3,3,3,3,3,4,4,4,4,3,3,3,0,5,5,5,
 		0,0,1,0,0,2,0,0,0,0,3,0,0,4,0,0,4,0,3,0,5,0,0,0,
 		0,0,1,0,0,2,2,2,0,0,3,0,0,4,4,4,4,0,3,0,0,5,5,0,
 		0,0,1,0,0,2,0,0,0,0,3,0,0,4,0,4,0,0,3,0,0,0,0,5,
@@ -56,7 +57,7 @@ void GameTitle() {
 	GoToXY(TETRIS_X + 11, picture_Y);
 	textcolor(YELLOW); printf("( 쉬움 = 0, 보통 = 1, 어려움 = 2, 종료 = 3 )\n");
 	GoToXY(TETRIS_X, picture_Y + 1);
-	textcolor(WHITE); printf("난이도 입력");
+	textcolor(WHITE); printf("난이도 입력 : ");
 
 	CursorView(true); scanf_s("%d", &level); CursorView(false);
 
@@ -141,7 +142,7 @@ void InGameFrame() {
 		printf("게임 시작 %d초 전...!", i / 2);
 		Sleep(300);
 		GoToXY(46, 14);
-		printf("                        ");
+		printf("                      ");
 		Sleep(200);
 	}
 }
@@ -180,7 +181,7 @@ void DeleteNextBlock() {
 				if (x > 0 && x < 5) {
 					if (NextBlock[y][x] == 2) {
 						GoToXY(42 + 8 + x * 2, 12 + y);
-						printf(" ");
+						printf("  ");
 					}
 				}
 			}
