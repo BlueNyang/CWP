@@ -34,8 +34,8 @@ void CursorView(char show) {
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &ConsoleCursor);
 }
 void SetConsoleView() {
-	system("mod con: cols=100 lines=25");
-	system("title 창의실무프로젝트 구글 공룡게임 [By. YongWun Kim]");
+	system("mod con : cols=100 lines=25");
+	system("title 창의실무프로젝트 구글 공룡게임 [By. YongWun Kim] - 20202717");
 	CursorView(FALSE);
 }
 void SetColor(unsigned short text) {
@@ -56,8 +56,9 @@ int GetKeyDown() {
 
 int IsCollision(const int treeX, const int dinoY) {
 	GoToXY(0, 0);
-	printf("treeX: %d, dinoY: %d", treeX, dinoY);
+	printf("treeX : %d, dinoY : %d", treeX, dinoY);
 	if (treeX <= 8 && treeX >= 4 && dinoY > 8) return TRUE;
+
 	return FALSE;
 }
 
@@ -95,6 +96,7 @@ void DrawDino(int dinoY) {
 		legFlag = TRUE;
 	}
 }
+
 void DrawTree(int treeX) {
 	SetColor(GREEN);
 	GoToXY(treeX, TREE_BOTTOM_Y);
@@ -122,13 +124,13 @@ void DrawGameOver(const int score) {
 	printf("===================================");
 	GoToXY(x, y + 5);
 	printf("SCORE : %d", score);
-	GoToXY(0, y + 14);
+	GoToXY(x, y + 14);
 	system("pause");
 }
 
 int main(void) {
 	SetConsoleView();
-	int gamespeed = 50;
+
 	while (TRUE) {
 		int isJumping = FALSE;
 		int isBottom = TRUE;
@@ -148,29 +150,26 @@ int main(void) {
 				isBottom = FALSE;
 			}
 
-			if (isJumping)
-			{
-				dinoY -= gravity;
-				if (dinoY <= 3) isJumping = FALSE;
-			}
-			else
-			{
-				if (dinoY < DINO_BOTTOM_Y) dinoY += gravity;
-				if (dinoY >= DINO_BOTTOM_Y) { dinoY = DINO_BOTTOM_Y; isBottom = TRUE; }
-			}
+			if (isJumping) dinoY -= gravity;
+			else dinoY += gravity;
+
+			if (dinoY >= DINO_BOTTOM_Y) { dinoY = DINO_BOTTOM_Y; isBottom = TRUE; }	
 
 			treeX -= 2;
 			if (treeX <= 0) treeX = TREE_BOTTOM_X;
 
+			if (dinoY <= 3) isJumping = FALSE;
+
 			DrawDino(dinoY);
 			DrawTree(treeX);
+
 			curr = clock();
 			if (((curr - start) / CLOCKS_PER_SEC) >= 1) {
 				score++;
 				start = clock();
 			}
-			if (((curr - start) / CLOCKS_PER_SEC) % 10 == 0) gamespeed--;
-			Sleep(gamespeed);
+
+			Sleep(30);
 			system("cls");
 
 			SetColor(WHITE);
@@ -185,5 +184,5 @@ int main(void) {
 		DrawGameOver(score);
 	}
 
-	return 0;
+	return FALSE;
 }

@@ -6,6 +6,8 @@
 #define NEW_S 1
 #define MOD_S 0
 
+//Ω«∆–¿€...
+
 struct student {
 	int sNum;
 	char name[12];
